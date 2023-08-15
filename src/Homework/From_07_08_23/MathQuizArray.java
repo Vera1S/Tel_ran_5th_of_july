@@ -17,43 +17,45 @@ public class MathQuizArray {
 
     public static void start() {
 
-        Scanner scan = new Scanner(System.in);
+
         Random rand = new Random();
 
 
-        int numPlayers = 5;     // Количество игроков
-        int numQuestions = 3;   // Количество вопросов для каждого игрока
+        int numPlayers = 2;     // Количество игроков
+        int numQuestions = 2;   // Количество вопросов для каждого игрока
+        int correctAnswer;
+        int result = 0;
+        int score = 0;
 
 
         System.out.println("Добро пожаловать в опросник!");
         int[] scores = new int[numPlayers]; // Массив для хранения счетов игроков
 
         for (int i = 0; i < numPlayers; i++) { // <-- игроки
-            int score = 0;
 
-            for (int j = 0; j <= numQuestions; j++) { // <-- вопросы
+
+            for (int j = 0; j < numQuestions; j++) { // <-- вопросы
                 int num1 = rand.nextInt(1, 100) + 1;
                 int num2 = rand.nextInt(1, 100) + 1;
-                int result;
 
-//                 System.out.println("Игрок " + (i + 1) + ", начинаете игру!");
+
+                System.out.println("Игрок " + (i + 1) + ", начинаете игру!");
 
                 switch (rand.nextInt(4)) {
                     case 0:
-                        System.out.print("Вопрос " + i + ": " + num1 + " + " + num2 + " = ");
-//                         System.out.println("Вопрос " + i + ", j: " + j);
+                        System.out.print("Вопрос " + (j + 1) + ": " + num1 + " + " + num2 + " = ");
                         result = Calculator.add(num1, num2);
                         break;
                     case 1:
-                        System.out.print("Вопрос " + i + ": " + num1 + " - " + num2 + " = ");
+                        System.out.print("Вопрос " + (j + 1) + ": " + num1 + " - " + num2 + " = ");
                         result = Calculator.subtract(num1, num2);
                         break;
                     case 2:
-                        System.out.print("Вопрос " + i + ": " + num1 + " * " + num2 + " = ");
+                        System.out.print("Вопрос " + j + ": " + num1 + " * " + num2 + " = ");
                         result = Calculator.multiply(num1, num2);
                         break;
                     default:
-                        System.out.print("Вопрос " + i + ": " + num1 + " / " + num2 + " = ");
+                        System.out.print("Вопрос " + j + ": " + num1 + " / " + num2 + " = ");
                         // Avoid division by zero;
                         // Избегайте деления на ноль
                         if (num1 == 0) {
@@ -62,23 +64,30 @@ public class MathQuizArray {
                         result = Calculator.divide(num1, num2);
                 }
 
-                scores[i] = score; // Сохраняем счет игрока
-            }
+                Scanner scan = new Scanner(System.in);
+                correctAnswer = scan.nextInt();
+                // Вывод финального счета для каждого игрока
 
-            // Вывод финального счета для каждого игрока
-            for (int k = 0; k < numPlayers; k++) {
-                numPlayers = scan.nextInt();
-                if (numPlayers == score) {
+
+                if (result == correctAnswer) {
                     score = score + 5;
                     System.out.println("Правильно! Текущее количество баллов: " + score);
                 } else {
                     score = score - 5;
-                    System.out.println("Неправильно! Правильный ответ: "  + score + ". Текущее количество баллов: " + score);
+                    System.out.println("Неправильно! Правильный ответ: " + score + ". Текущее количество баллов: " + score);
 
-                    System.out.println("Игрок " + (score += 5) + ", Ваш финальный счет: " + score);
                 }
-
+                scores[i] = score; // Сохраняем счет игрока
 
             }
+
         }
-    }}
+        for (int k = 0; k < numPlayers; k++) {
+
+
+            System.out.println("Игрок " + (numPlayers + 1) + ", Ваш финальный счет: " + scores[k]);
+
+
+        }
+    }
+}
