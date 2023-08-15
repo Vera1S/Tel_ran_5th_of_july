@@ -17,15 +17,15 @@ public class MathQuizArray {
 
     public static void start() {
 
-
+        Scanner scan = new Scanner(System.in);
         Random rand = new Random();
 
 
-        int numPlayers = 2;     // Количество игроков
-        int numQuestions = 2;   // Количество вопросов для каждого игрока
+        int numPlayers = 5;     // Количество игроков
+        int numQuestions = 3;   // Количество вопросов для каждого игрока
         int correctAnswer;
         int result = 0;
-        int score = 0;
+//        int score = 0;
 
 
         System.out.println("Добро пожаловать в опросник!");
@@ -64,20 +64,19 @@ public class MathQuizArray {
                         result = Calculator.divide(num1, num2);
                 }
 
-                Scanner scan = new Scanner(System.in);
+
                 correctAnswer = scan.nextInt();
+
                 // Вывод финального счета для каждого игрока
-
-
                 if (result == correctAnswer) {
-                    score = score + 5;
-                    System.out.println("Правильно! Текущее количество баллов: " + score);
+                    scores[i] += 5;
+                    System.out.println("Правильно! Текущее количество баллов: " + scores[i]);
                 } else {
-                    score = score - 5;
-                    System.out.println("Неправильно! Правильный ответ: " + score + ". Текущее количество баллов: " + score);
+                    scores[i] -= 5;
+                    System.out.println("Неправильно! Правильный ответ: " + result + ". Текущее количество баллов: " + scores[i]);
 
                 }
-                scores[i] = score; // Сохраняем счет игрока
+//                scores[i] = score; // Сохраняем счет игрока
 
             }
 
@@ -85,7 +84,7 @@ public class MathQuizArray {
         for (int k = 0; k < numPlayers; k++) {
 
 
-            System.out.println("Игрок " + (numPlayers + 1) + ", Ваш финальный счет: " + scores[k]);
+            System.out.println("Игрок " + (k + 1) + ", Ваш финальный счет: " + scores[k]);
 
 
         }
